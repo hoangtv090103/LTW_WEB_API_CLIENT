@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>User Management</title>
+    </head>
+    <body>
+        <h1>User Management</h1>
+        <h2>Add User</h2>
+    <form action="/add" method="POST">
+
+        <span>
+            <label for="name">Name: </label>
+            <input id="name" name="name"/>
+        </span>
+        <span>
+            <label for="email">Email: </label>
+            <input id="email" name="email">
+        </span>
+        <span>
+            <label for="password">Password: </label>
+            <input id="password" name="password">
+        </span>
+        <input type="submit" value="Add">
+    </form>
+
+        <h2>Users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Password</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user['id'] }}</td>
+                        <td>{{ user['name'] }}</td>
+                        <td>{{ user['email'] }}</td>
+                        <td>{{ user['password'] }}</td>
+                        <td>
+                            <form action="/edit/{{ user['id'] }}" method="POST">
+                                <input type="hidden" name="_method" value="Edit">
+                                <input type="submit" value="edit">
+                            </form>
+                            <form action="/delete/{{ user['id'] }}" method="POST">
+                                <input type="hidden" name="_method" value="Delete">
+                                <input type="submit" value="delete">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
